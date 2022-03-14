@@ -45,7 +45,8 @@ data ℕ : Set where
 
 
 _+_ : ℕ → ℕ → ℕ
-m + n = {!   !}
+zero + n = n
+suc m + n = suc (m + n)
 
 
 {- C-c C-c divide en casos -}
@@ -76,7 +77,10 @@ data Bool : Set where
    eq m n = ff, en otro caso
 -}
 eq : ℕ → ℕ → Bool
-eq n m = {!!}
+eq zero zero = tt
+eq zero (suc _) = ff
+eq (suc _) zero = ff
+eq (suc n) (suc m) = eq n m
 
 {- definimos las listas -}
 {- Declaramos asociatividad y
@@ -122,7 +126,10 @@ infixr 4 _++_
 
 {- aplicación punto a punto -}
 appL : {A B : Set} → List (A → B) → List A -> List B
-appL fs xs  = {!!}
+appL [] [] = []
+appL [] (x ∷ xs) = [] --trucho
+appL (f ∷ fs) [] = [] --trucho
+appL (f ∷ fs) (x ∷ xs) = (f x) ∷ (appL fs xs)
 
 
 
@@ -152,8 +159,10 @@ data Maybe (A : Set) : Set where
      just    : A -> Maybe A
 
 {- devolver el elemento enésimo de una lista. -}
-_!!_ : {A : Set} → List A → ℕ → A
-xs !! n = {!!}
+_!!_ : {A : Set} → List A → ℕ → Maybe A
+[] !! n = nothing
+(x ∷ xs) !! zero = just  x
+(x ∷ xs) !! suc n = xs !! n
 
 
 
@@ -191,14 +200,17 @@ Con esta definición internalizamos las invariantes sobre longitud de la listas.
 -}
 
 
-mapVec : ∀{n}{A : Set}{B : Set} → (A → B) → Vec A n → Vec B n
-mapVec f xs = {!!}
+mapVec : ∀{n A B} → (A → B) → Vec A n → Vec B n
+mapVec f [] = []
+mapVec f (x ∷ xs) = f x ∷ mapVec f xs
 
 snoc' : {A : Set}{n : ℕ} → Vec A n → A → Vec A (suc n)
-snoc' xs a = {!!}
+snoc' [] a = a ∷ []
+snoc' (x ∷ xs) a = x ∷ (snoc' xs a)
 
 rev' : {A : Set}{n : ℕ} → Vec A n → Vec A n
-rev' xs = {!!}
+rev' [] = []
+rev' (x ∷ xs) = snoc' (rev' xs) x
 
 
 {- El tipo Fin n me representa el conjunto {0,1,...,n-1}  -}
@@ -219,18 +231,21 @@ Fin 3   zero  (suc zero) (suc (suc (zero)))
 
 {- Un vector con los elementos de Fin, en orden -}
 enum : (n : ℕ) → Vec (Fin n) n
-enum n = {!!}
+enum zero = []
+enum (suc n) = zero ∷ mapVec suc (enum n)
 
 
 
 {- elemento máximo de un conjunto de tipo Fin (suc n) -}
 max : {n : ℕ} → Fin (suc n)
-max {n} = {!!} 
+max {zero} = zero
+max {suc n} = suc max 
 
 
 {- nat : da el natural correspondiente a un elemento de Fin n -}
 nat : {n : ℕ} → Fin n → ℕ
-nat n = {!!}
+nat zero = 0
+nat (suc n) = suc (nat n)
 
 
 -----------------------------------------------------------
@@ -250,7 +265,8 @@ inv i = {!!}
 
 {- proyección para vectores -}
 _!!'_ : {A : Set}{n : ℕ} → Vec A n → Fin n → A
-xs !!' n = {!!}
+(x ∷ xs) !!' zero = x
+(x ∷ xs) !!' suc n = xs !!' n
 
 
 
@@ -258,7 +274,8 @@ xs !!' n = {!!}
 
 {- aplicación punto a punto para vectores -}
 appV : {A B : Set}{n : ℕ} → Vec (A → B) n → Vec A n → Vec B n
-appV fs xs = {!!}
+appV [] [] = []
+appV (f ∷ fs) (x ∷ xs) = (f x) ∷ (appV fs xs)
 
 
 
@@ -339,3 +356,4 @@ Bajar el archivo del repositorio y hacer los ejercicios.
  git clone https://github.com/mjaskelioff/progcat.git
 
 -}
+  
