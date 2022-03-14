@@ -336,6 +336,6 @@ test5 = transpose ej5
 --------------------------------------------------
 {-
 Bajar el archivo del repositorio y hacer los ejercicios.
- git clone http://www.cifasis-conicet.gov.ar/~catpro/repo.git
+ git clone https://github.com/mjaskelioff/progcat.git
 
 -}
