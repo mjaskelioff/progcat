@@ -2,9 +2,9 @@ module Library where
 
 open import Data.Empty public
 open import Data.Unit public  using (⊤ ; tt)
-open import Relation.Binary.HeterogeneousEquality hiding (Extensionality) public 
+open import Relation.Binary.HeterogeneousEquality hiding (Extensionality ; [_]) public 
 open import Data.Product renaming (proj₁ to fst; proj₂ to snd) public
-open import Function using (id; _∘_; _$_ ; _$-) public
+open import Function using (id; _∘_; _$_ ; _$- ; λ-) public
 open ≅-Reasoning renaming (begin_ to proof_) public
 open import Level public renaming (suc to lsuc; zero to lzero) hiding (lift)
 
