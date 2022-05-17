@@ -172,7 +172,7 @@ lemma = homomorphismEq (proof
          α ∙ homo-base init-homo 
          ≅⟨ sym (cong homo-base (univ {f = comp-homo α-homo init-homo})) ⟩
          homo-base init-homo
-         ≅⟨ cong homo-base univ ⟩
+         ≅⟨ cong homo-base (univ {f = iden-homo}) ⟩
          iden
          ∎)
 
@@ -186,7 +186,7 @@ L = iso init-homo
         ≅⟨ sym fcomp ⟩
         HMap (α ∙ homo-base init-homo)
         ≅⟨ cong HMap (cong homo-base lemma) ⟩
-        HMap (homo-base iden-homo)
+        HMap (homo-base (iden-homo {inF}))
         ≅⟨ fid ⟩
         iden
         ∎
