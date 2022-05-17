@@ -42,10 +42,10 @@ module Nat where
 
   -- definir constructores
   0N : μF
-  0N = ?
+  0N = {!   !}
 
   sucN : μF → μF
-  sucN x = ?
+  sucN x = {!   !}
 
 --------------------------------------------------
 {- Probar que los naturales, junto con foldℕ son el álgebra inicial de Nat -}
@@ -55,10 +55,10 @@ module Nat where
   foldℕ s z (suc n) = s (foldℕ s z n)
 
   μNat : F-algebra
-  μNat = ?
+  μNat = {!   !}
 
   init-homo-base : (k : F-algebra) → ℕ → carrier k 
-  init-homo-base k = foldℕ ? ?
+  init-homo-base k = foldℕ {!   !} {!   !}
 
   lema-init-homo-prop : {X : F-algebra} → (n : OMap ℕ) → (init-homo-base X ∘ algebra μNat) n ≅
                                        (algebra X ∘ HMap (init-homo-base X)) n
@@ -74,12 +74,12 @@ module Nat where
 
   univℕ : ∀{X : F-algebra} → {f : F-homomorphism μNat X}
        → (n : ℕ) →  init-homo-base X n ≅ homo-base f n
-  univℕ {f = homo mor prop} zero = ?
-  univℕ {X}{f = homo mor prop} (suc n) = ?
+  univℕ {f = homo mor prop} zero = {!   !}
+  univℕ {X}{f = homo mor prop} (suc n) = {!   !}
 
 
   initial-ℕ : Initial (F-AlgebraCat) μNat
-  initial-ℕ = ?
+  initial-ℕ = {!   !}
 
 --------------------------------------------------
 {- Definir un functor cuya algebra inicial sea las listas.
@@ -91,7 +91,7 @@ L A = ?
 module Listas (A : Set) where
 
   open Fun (L A)
-  open import Functors.Algebra (L A)
+  open import clase09.FAlgebraCat (L A)
   open F-homomorphism
   open F-algebra
   open import Data.Nat
@@ -105,17 +105,17 @@ module Listas (A : Set) where
    efectivamente son listas (como hicimos con los naturales)
 -}
   nil : μF
-  nil = ?
+  nil = {!   !}
 
   cons : A → μF → μF
-  cons x xs = ?
+  cons x xs = {!   !}
 
 {-
   Definir la función length para listas
 -}
 
   length : μF → ℕ
-  length = ?
+  length = {!   !}
 
 --------------------------------------------------
 {- Probar que los las Listas junto con foldr son el
@@ -126,22 +126,22 @@ module Listas (A : Set) where
   foldr n c (Cons x xs) = c x (foldr n c xs)
 
   μList : F-algebra
-  μList = ?
+  μList = {!   !}
 
   init-homo-base : (k : F-algebra) → List A → carrier k 
-  init-homo-base k = ?
+  init-homo-base k = {!   !}
 
   init-homo-prop : (X : F-algebra) →
        init-homo-base X ∘ algebra μList ≅  algebra X ∘ HMap (init-homo-base X)
-  init-homo-prop X = ?
+  init-homo-prop X = {!   !}
 
   init-homoList : {X : F-algebra} → F-homomorphism μList X
-  init-homoList {X} = ?
+  init-homoList {X} = {!   !}
 
   univList : ∀{X : F-algebra} → {f : F-homomorphism μList X}
            → (xs : List A) → init-homo-base X xs ≅ homo-base f xs
-  univList = ?
+  univList = {!   !}
 
   initial-List : Initial (F-AlgebraCat) μList
-  initial-List = ?
+  initial-List = {!   !}
   
