@@ -91,18 +91,19 @@ LIST A = μ ListF A
 
 -- Constructores
 NIL : ∀ {A} → LIST A
-NIL = {!!} 
+NIL = ⟨ inj₁ tt ⟩
 
 CONS : ∀ {A} → A → LIST A → LIST A
-CONS x xs = {!!} 
+CONS x xs = ⟨ inj₂ (x , xs) ⟩
 
 -- isomorfismo entre List A y LIST A
 toList : ∀ {A} → LIST A → List A
-toList x = {!!}
+toList ⟨ inj₁ x ⟩ = []
+toList ⟨ inj₂ (x , xs) ⟩ = x ∷ toList xs 
 
 fromList :  ∀ {A} → List A → LIST A  
-fromList x = {!!} 
-
+fromList [] = ⟨ inj₁ tt ⟩
+fromList (x ∷ xs) = ⟨ inj₂ ( x , fromList xs) ⟩
 
 -- Probamos que forman un isomorfismo (útil para tener distintas vistas del mismo tipo) 
 
