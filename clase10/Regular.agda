@@ -128,7 +128,13 @@ listIso = iso fromList iso1 iso2
 -- Definición genérica de map para los tipos de datos regulares
 
 map : ∀ {A B C D} → (F : Regular) → (A → B) → (C → D) → ⟦ F ⟧ᵣ A C → ⟦ F ⟧ᵣ B D
-map F f g x = {!!} 
+map U f g tt = tt
+map (K A) f g d = d
+map P f g d = f d 
+map (F ⊗ G) f g d = map F f g (proj₁ d) , map G f g (proj₂ d) 
+map (F ⊕ G) f g (inj₁ x) = inj₁ (map F f g x)
+map (F ⊕ G) f g (inj₂ x) = inj₂ (map G f g x)
+map I f g d = g d 
 
 -- Definición de fold 
 -- fold (h) . inF = h . F fold (h)
@@ -168,8 +174,14 @@ Algebra F p A =  ⟦ F ⟧ᵣ p A → A
 elements : ∀ {F : Regular} {A : Set} → μ F A  → ℕ
 elements {F} {A} = fold {F} (alg {F}) 
      where alg : ∀ {F' : Regular} → Algebra F' A ℕ
-           alg {F'} x = {!!}
-           
+           alg {U} x = 0
+           alg {K A} x = 0
+           alg {P} x = 1
+           alg {F' ⊗ F''} (x , y) = alg {F'} x + alg {F''} y
+           alg {F' ⊕ F''} (inj₁ x) = alg {F'} x
+           alg {F' ⊕ F''} (inj₂ y) = alg {F''} y
+           alg {I} x = x
+       
 
 
 sl : ℕ
@@ -178,7 +190,7 @@ sl = elements (fromList (2 ∷ 4 ∷ 5 ∷ []))
 
 -- Derivamos la definición de foldL a partir de fold
 foldL : ∀ {A B} → B → (A × B → B) → List A → B
-foldL {A} n c xs = fold {!!} (fromList xs) 
+foldL {A} n c xs = fold ([_,_] (λ _ → n) c) (fromList xs) 
 
 
 
