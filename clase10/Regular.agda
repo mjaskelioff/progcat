@@ -50,12 +50,14 @@ data Regular : Set₁ where
 BoolF : Regular
 BoolF = U ⊕ U
 
+
 toBool : ∀ {p r} →  ⟦ BoolF ⟧ᵣ p r → Bool
-toBool x = {!!} 
+toBool (inj₁ tt) = true
+toBool (inj₂ tt) = false
 
 fromBool : ∀ {p r} → Bool → ⟦ BoolF ⟧ᵣ p r
-fromBool x = {!!} 
-
+fromBool false = inj₁ tt
+fromBool true = inj₂ tt
 
 -- ¿Podremos hacer los mismo con listas? 
 open import Data.List hiding (map ; sum)
@@ -64,13 +66,9 @@ open import Data.List hiding (map ; sum)
 -- List A B = 1 + A × B
 -- List = 1 + P × I
 
-
+-- No podemos definirlo, falta modelar recursión
 toList' : ∀ {r} {A} → ⟦ U ⊕ (P ⊗ I) ⟧ᵣ A r → List A 
 toList' x = {!!} 
-
-
-
-
 
 
 
