@@ -60,3 +60,12 @@ comp-pair {f = f}{g}{h}{i} = proof
                  pair f h ∙ pair g i
                ∎
 
+--Prop. de pair con iden. Caso particular de comp-pair, con h = i = iden.
+iden-comp-pair :  ∀{A B C D}{f : Hom B C}{g : Hom A B}
+               → pair (f ∙ g) (iden {D}) ≅ pair f iden ∙ pair g iden
+iden-comp-pair {f = f} {g} = proof
+                           pair (f ∙ g) iden
+                           ≅⟨ cong (pair (f ∙ g)) (sym idl) ⟩
+                           pair (f ∙ g) (iden ∙ iden)
+                           ≅⟨ comp-pair ⟩
+                           pair f iden ∙ pair g iden ∎
